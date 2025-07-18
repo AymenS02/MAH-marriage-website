@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Users, Shield, CheckCircle, ArrowRight, Star, MessageCircle, Calendar, UserCheck } from 'lucide-react';
+import { Heart, Users, Shield, CheckCircle, ArrowRight, Star, MessageCircle, Calendar, UserCheck, ArrowBigDown, ArrowBigDownDash, ArrowBigDownIcon } from 'lucide-react';
 import Image from 'next/image';
 import { assets } from '@/assets/assets';
+import { useRouter } from 'next/navigation';
 
 const LandingPage = () => {
   const [isVisible, setIsVisible] = useState({});
@@ -33,23 +34,23 @@ const LandingPage = () => {
     };
   }, []);
 
-  const testimonials = [
-    {
-      name: "Amina & Omar",
-      text: "We found each other through this blessed platform. The Imam's guidance made our journey smooth and meaningful.",
-      location: "Toronto, ON"
-    },
-    {
-      name: "Fatima & Ahmed",
-      text: "The process was respectful and thorough. We're grateful for the community support in finding our life partner.",
-      location: "Hamilton, ON"
-    },
-    {
-      name: "Khadija & Hassan",
-      text: "Alhamdulillah, we've been happily married for 2 years now. This platform truly works with Allah's blessing.",
-      location: "Mississauga, ON"
-    }
-  ];
+//   const testimonials = [
+//     {
+//       name: "Amina & Omar",
+//       text: "We found each other through this blessed platform. The Imam's guidance made our journey smooth and meaningful.",
+//       location: "Toronto, ON"
+//     },
+//     {
+//       name: "Fatima & Ahmed",
+//       text: "The process was respectful and thorough. We're grateful for the community support in finding our life partner.",
+//       location: "Hamilton, ON"
+//     },
+//     {
+//       name: "Khadija & Hassan",
+//       text: "Alhamdulillah, we've been happily married for 2 years now. This platform truly works with Allah's blessing.",
+//       location: "Mississauga, ON"
+//     }
+//   ];
 
   const features = [
     {
@@ -97,25 +98,27 @@ const LandingPage = () => {
     }
   ];
 
+  const router = useRouter();
+
   const handleBeginApplication = () => {
     router.push('/application');
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
+//     }, 5000);
+//     return () => clearInterval(interval);
+//   }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-white">
       {/* Header */}
-      <header className="hidden lg:block bg-gradient-to-br from-green-800 to-green-600 text-black py-5 px-5 md:px-12 lg:px-28  backdrop-blur-sm sticky top-0 z-50 border-b border-green-100">
+      <header className="hidden lg:block bg-gradient-to-br from-green-800 to-green-600 text-black py-5 px-5 md:px-12 lg:px-28 backdrop-blur-sm sticky top-0 z-50 border-green-100">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="  rounded-full flex items-center justify-center">
-                <Image src={assets.mah_logo} alt='' width={200} height={400} className='border-b border-black' />
+                <Image src={assets.mah_logo} alt='' width={200} height={400} className='' />
             </div>
           </div>
           <button 
@@ -128,14 +131,14 @@ const LandingPage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-5 md:px-12 lg:px-28">
+      <section className="py-[25vh] px-5 md:px-12 lg:px-28">
         <div className={`text-center transition-all duration-1000 ${isVisible.hero ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 mb-6">
             Find a Compatible 
             <span className="text-green-800 block">Spouse</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-12">
-            Guided and Facilitated by our Imam, Shaykh Reda Bedier, in accordance with Islamic principles and community values
+            Guided and Facilitated by our Imam, <b>Shaykh Reda Bedier</b>, in accordance with Islamic principles and community values
           </p>
           
           <div className="mb-16">
@@ -161,6 +164,7 @@ const LandingPage = () => {
               <span className="text-gray-700">Community Based</span>
             </div>
           </div>
+          <ArrowBigDownIcon className="w-8 h-8 text-green-800 animate-bounce mx-auto mt-16" />
         </div>
       </section>
 
@@ -198,7 +202,7 @@ const LandingPage = () => {
             {steps.map((step, index) => (
               <div 
                 key={index} 
-                className={`flex items-center mb-12 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} transition-all duration-700`}
+                className={`flex items-center mb-12 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} max-md:flex-col transition-all duration-700`}
                 style={{ transitionDelay: `${index * 200}ms` }}
               >
                 <div className={`flex-1 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
@@ -206,7 +210,7 @@ const LandingPage = () => {
                   <h3 className="text-2xl font-semibold text-gray-900 mb-4">{step.title}</h3>
                   <p className="text-gray-600 text-lg">{step.description}</p>
                 </div>
-                <div className="w-16 h-16 bg-green-800 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                <div className="max-md:hidden w-16 h-16 bg-green-800 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
                   {index + 1}
                 </div>
                 <div className="flex-1"></div>
@@ -217,7 +221,7 @@ const LandingPage = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 px-5 md:px-12 lg:px-28 bg-white">
+      {/* <section id="testimonials" className="py-20 px-5 md:px-12 lg:px-28 bg-white">
         <div className={`transition-all duration-1000 ${isVisible.testimonials ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-16">
             Success Stories
@@ -250,7 +254,7 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section id="cta" className="py-24 px-5 md:px-12 lg:px-28 relative overflow-hidden">
@@ -298,7 +302,7 @@ const LandingPage = () => {
             
             <div className="mt-12 text-center">
               <p className="text-green-200 text-sm">
-                "And among His signs is this, that He created for you mates from among yourselves, that you may dwell in tranquility with them" - Quran 30:21
+                "And one of His signs is that He created for you spouses from among yourselves so that you may find comfort in them." - Quran 30:21
               </p>
             </div>
           </div>
@@ -323,18 +327,17 @@ const LandingPage = () => {
             <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-green-400 transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-green-400 transition-colors">How It Works</a></li>
-                <li><a href="#" className="hover:text-green-400 transition-colors">Success Stories</a></li>
-                <li><a href="#" className="hover:text-green-400 transition-colors">Contact</a></li>
+                <li><a onClick={() => window.open("https://www.mahcanada.com/about-us", "_blank")} className="hover:text-green-400 transition-colors">About Us</a></li>
+                <li><a onClick={() => window.open("https://www.mahcanada.com/contact-us", "_blank")} className="hover:text-green-400 transition-colors">Contact</a></li>
               </ul>
             </div>
             <div>
               <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
               <div className="space-y-2 text-gray-400">
                 <p>📧 info@muslimmatrimonial.com</p>
-                <p>📱 (905) 123-4567</p>
-                <p>📍 Hamilton, Ontario, Canada</p>
+                <p>📱 +1 (905) -929 -1526</p>
+                <p>📍 1545 Stone Church Rd E, Hamilton, ON L8W 3P8</p>
+                <p onClick={() => window.open("https://www.mahcanada.com", "_blank")}>🌐 www.mahcanada.com</p>
               </div>
             </div>
           </div>

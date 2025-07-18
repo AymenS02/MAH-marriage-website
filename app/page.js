@@ -1,18 +1,17 @@
 'use client'
-
-import LandingPage from "@/components/LandingPage";
-
-// import Header from "@/components/Header";
-// import ProfileList from "@/components/ProfileList";
-// import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import ProfileList from "@/components/ProfileList";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
     <>
-      {/* <Header />
+      <Header />
       <ProfileList />
-      <Footer /> */}
-      <LandingPage />
+      <Footer />
     </>
   );
 }
+
+
+// Make a password protection before getting access to the website

@@ -22,12 +22,12 @@ export const assets = {
 export const profile_data = [
     {
         id: 1,
-        name: "Rashid Ahmed",
+        name: "Ramy Al-Mihnabi",
         image: muslim_man,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        description: "Looking for a boss babe.",
         date:Date.now(),
         gender: "Male",
-        age: 30,
+        age: 22,
     },
     {
         id: 2,

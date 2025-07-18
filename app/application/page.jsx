@@ -498,7 +498,7 @@ const SpouseFinderQuestionnaire = () => {
           <div className="flex items-center justify-center mb-4">
             <Heart className="w-8 h-8 text-green-800 mr-2" />
             <h1 className="text-3xl font-bold bg-gradient-to-r from-green-800 to-black bg-clip-text text-transparent">
-              Find Your Perfect Match
+              Find Your Match
             </h1>
           </div>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -512,7 +512,7 @@ const SpouseFinderQuestionnaire = () => {
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (
-                <div key={index} className="flex items-center">
+                <div key={index} className="flex flex-wrap items-center">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                     index <= currentStep 
                       ? 'bg-green-800 text-white' 
