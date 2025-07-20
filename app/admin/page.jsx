@@ -1,11 +1,13 @@
 'use client'
+import Header from "@/components/Header";
+import ProfileList from "@/components/ProfileList";
 import Footer from "@/components/Footer";
-import LandingPage from "@/components/LandingPage";
 
-export default function Home() {
+export default function Admin() {
   return (
     <>
-      <LandingPage />
+      <Header />
+      <ProfileList />
       <Footer />
     </>
   );
