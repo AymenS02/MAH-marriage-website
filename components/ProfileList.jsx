@@ -14,7 +14,7 @@ const ProfileList = () => {
   });
 
   return (
-    <div className='bg-white py-5'>
+    <div className='bg-white py-5 md:px-20'>
       <div className="flex justify-center gap-10 py-10">
         <button onClick={() => setMenu('All')} className={menu === "All" ? "bg-black text-white py-1 px-4 rounded-sm" : ""}>All</button>
         <button onClick={() => setMenu('GreaterThan25')} className={menu === "GreaterThan25" ? "bg-black text-white py-1 px-4 rounded-sm" : ""}>{'>'} 25</button>
@@ -31,6 +31,10 @@ const ProfileList = () => {
             name={item.name}
             description={item.description}
             age={item.age}
+            ethnicity={item.ethnicity}
+            location={item.location}
+            education={item.education}
+            profession={item.profession}
           />
         ))}
       </div>

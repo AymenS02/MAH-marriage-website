@@ -5,7 +5,6 @@ import { Camera, Heart, User, Mail, Lock, MapPin, Calendar, Book, Coffee, Star, 
 
 const SpouseFinderQuestionnaire = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [profileImage, setProfileImage] = useState(null);
   const [formData, setFormData] = useState({
     // Account Info
     name: '',
@@ -81,15 +80,6 @@ const SpouseFinderQuestionnaire = () => {
     }));
   };
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => setProfileImage(e.target.result);
-      reader.readAsDataURL(file);
-    }
-  };
-
   const nextStep = () => {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
@@ -103,7 +93,7 @@ const SpouseFinderQuestionnaire = () => {
   };
 
   const handleSubmit = () => {
-    console.log('Form submitted:', { ...formData, profileImage });
+    console.log('Form submitted:', { ...formData });
     alert('Profile created successfully! 💕');
   };
 
@@ -140,28 +130,6 @@ const SpouseFinderQuestionnaire = () => {
       case 0: // Account Setup
         return (
           <div className="space-y-6">
-            <div className="text-center mb-8">
-              <div className="relative inline-block">
-                <div className="w-32 h-32 bg-gradient-to-br from-green-800 to-black rounded-full flex items-center justify-center mb-4 mx-auto overflow-hidden">
-                  {profileImage ? (
-                    <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
-                  ) : (
-                    <Camera className="w-12 h-12 text-white" />
-                  )}
-                </div>
-                <label className="absolute bottom-0 right-0 bg-white rounded-full p-2 shadow-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                  <Camera className="w-4 h-4 text-gray-600" />
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="hidden"
-                  />
-                </label>
-              </div>
-              <p className="text-gray-600">Upload your best photo</p>
-            </div>
-            
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>

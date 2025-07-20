@@ -34,7 +34,7 @@ const Footer = () => {
                 <p>📧 info@muslimmatrimonial.com</p>
                 <p>📱 +1 (905) -929 -1526</p>
                 <p>📍 1545 Stone Church Rd E, Hamilton, ON L8W 3P8</p>
-                <p onClick={() => window.open("https://www.mahcanada.com", "_blank")}>🌐 www.mahcanada.com</p>
+                <p className="cursor-pointer" onClick={() => window.open("https://www.mahcanada.com", "_blank")}>🌐 www.mahcanada.com</p>
               </div>
             </div>
           </div>
