@@ -19,7 +19,7 @@ const Header = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div onClick={() => router.push('/')} className="rounded-full flex items-center justify-center">
-                <Image src={assets.mah_logo} alt='' width={200} height={400} className='' />
+                <Image src={assets.logo} alt='Logo' width={200} height={400} />
             </div>
           </div>
           <button 

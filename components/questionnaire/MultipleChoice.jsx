@@ -1,6 +1,6 @@
 // components/questionnaire/MultipleChoice.jsx
 import React from 'react';
-
+// This component renders a multiple choice question with options that can be selected.
 const MultipleChoice = ({ options, field, title, allowMultiple = false, formData, handleInputChange, handleArrayChange }) => (
   <div className="space-y-4">
     <h3 className="text-lg font-semibold text-gray-800">{title}</h3>

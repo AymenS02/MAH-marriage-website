@@ -2,10 +2,13 @@
 'use client'
 
 import { useState } from 'react';
-
+// Ask Do you have any genetic medical conditions?
+// Do you follow a madhab?
+// Questions about looks?
 export const useQuestionnaireForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
+
     // Account Info
     name: '',
     email: '',

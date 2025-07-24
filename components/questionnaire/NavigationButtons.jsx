@@ -1,8 +1,13 @@
-// components/questionnaire/NavigationButtons.jsx
 import React from 'react';
 import { ChevronLeft, ChevronRight, Send } from 'lucide-react';
 
-const NavigationButtons = ({ currentStep, prevStep, nextStep, handleSubmit }) => {
+const NavigationButtons = ({
+  currentStep,
+  prevStep,
+  nextStep,
+  handleSubmit,
+  isNextDisabled = false // Default to false if not provided
+}) => {
   const isLastStep = currentStep === 7;
 
   return (
@@ -31,7 +36,12 @@ const NavigationButtons = ({ currentStep, prevStep, nextStep, handleSubmit }) =>
       ) : (
         <button
           onClick={nextStep}
-          className="flex items-center px-6 py-3 bg-gradient-to-r from-green-800 to-black text-white rounded-xl font-medium hover:from-green-700 hover:to-gray-800 transition-all shadow-lg"
+          disabled={isNextDisabled}
+          className={`flex items-center px-6 py-3 rounded-xl font-medium transition-all shadow-lg ${
+            isNextDisabled
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              : 'bg-gradient-to-r from-green-800 to-black text-white hover:from-green-700 hover:to-gray-800'
+          }`}
         >
           Next
           <ChevronRight className="w-5 h-5 ml-2" />

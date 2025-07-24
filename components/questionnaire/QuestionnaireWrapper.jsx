@@ -1,4 +1,3 @@
-// components/questionnaire/QuestionnaireWrapper.jsx
 'use client'
 
 import React from 'react';
@@ -38,6 +37,47 @@ const QuestionnaireWrapper = () => {
     { title: 'Looking For', component: LookingFor },
     { title: 'Tell Us More', component: FreeFormDetails }
   ];
+
+  // Enhanced validation logic for each step
+  const isStepValid = () => {
+    switch(currentStep) {
+      case 0: // Account Setup
+        return formData.name?.trim() && 
+               formData.email?.trim() && 
+               formData.password?.trim();
+      
+      case 1: // Basic Info - Updated with all required fields
+        const hasValidLanguages = formData.languages?.length > 0 && 
+          formData.languages.every(lang => lang.language && lang.fluency);
+        
+        return formData.age && 
+               formData.location && 
+               formData.occupation && 
+               formData.education &&
+               hasValidLanguages;
+      
+      case 2: // Islamic Practice
+        return formData.prayerFrequency && formData.fasting;
+      
+      case 3: // Values & Beliefs
+        return formData.importantValues && formData.marriageGoals;
+      
+      case 4: // Interests
+        return formData.hobbies && formData.interests;
+      
+      case 5: // Preferences
+        return formData.preferredAgeRange && formData.preferredLocation;
+      
+      case 6: // Looking For
+        return formData.partnerQualities && formData.dealBreakers;
+      
+      case 7: // Free Form Details
+        return true; // Optional step
+      
+      default:
+        return false;
+    }
+  };
 
   const CurrentStepComponent = steps[currentStep].component;
 
@@ -85,6 +125,7 @@ const QuestionnaireWrapper = () => {
             prevStep={prevStep}
             nextStep={nextStep}
             handleSubmit={handleSubmit}
+            isNextDisabled={!isStepValid()}
           />
         </div>
       </div>

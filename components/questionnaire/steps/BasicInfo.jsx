@@ -1,8 +1,48 @@
-// components/questionnaire/steps/BasicInfo.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import MultipleChoice from '../MultipleChoice';
+import countries from './utils/countries';
+import languages from './utils/languages';
+import fluencyLevels from './utils/fluencyLevels';
 
 const BasicInfo = ({ formData, handleInputChange, handleArrayChange }) => {
+  const [selectedLanguages, setSelectedLanguages] = useState(formData.languages || []);
+  const [touchedFields, setTouchedFields] = useState({});
+
+  const handleAddLanguage = () => {
+    const updated = [...selectedLanguages, { language: '', fluency: '' }];
+    setSelectedLanguages(updated);
+    handleInputChange('languages', updated);
+  };
+
+  const handleLanguageChange = (index, field, value) => {
+    const updated = [...selectedLanguages];
+    updated[index][field] = value;
+    setSelectedLanguages(updated);
+    handleInputChange('languages', updated);
+  };
+
+  const handleRemoveLanguage = (index) => {
+    const updated = selectedLanguages.filter((_, i) => i !== index);
+    setSelectedLanguages(updated);
+    handleInputChange('languages', updated);
+  };
+
+  const handleFieldBlur = (field) => {
+    setTouchedFields(prev => ({ ...prev, [field]: true }));
+  };
+
+  const isFieldValid = (field) => {
+    if (field === 'languages') {
+      return formData.languages?.length > 0 && 
+             formData.languages.every(lang => lang.language && lang.fluency);
+    }
+    return !!formData[field];
+  };
+
+  const showError = (field) => {
+    return touchedFields[field] && !isFieldValid(field);
+  };
+
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -12,35 +52,56 @@ const BasicInfo = ({ formData, handleInputChange, handleArrayChange }) => {
             type="number"
             value={formData.age}
             onChange={(e) => handleInputChange('age', e.target.value)}
-            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-800 focus:border-transparent"
+            onBlur={() => handleFieldBlur('age')}
+            className={`w-full p-4 border ${
+              showError('age') ? 'border-red-500' : 'border-gray-300'
+            } rounded-xl focus:ring-2 focus:ring-green-800 focus:border-transparent`}
             placeholder="25"
+            required
           />
+          {showError('age') && (
+            <p className="mt-1 text-sm text-red-600">Please enter your age</p>
+          )}
         </div>
-        
+
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
-          <input
-            type="text"
+          <label className="block text-sm font-medium text-gray-700 mb-2">Country of Residence</label>
+          <select
             value={formData.location}
             onChange={(e) => handleInputChange('location', e.target.value)}
-            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-800 focus:border-transparent"
-            placeholder="New York, NY"
-          />
+            onBlur={() => handleFieldBlur('location')}
+            className={`w-full p-4 border ${
+              showError('location') ? 'border-red-500' : 'border-gray-300'
+            } rounded-xl focus:ring-2 focus:ring-green-800 focus:border-transparent`}
+            required
+          >
+            <option value="">Select a country</option>
+            {countries.map((country) => (
+              <option key={country} value={country}>
+                {country}
+              </option>
+            ))}
+          </select>
+          {showError('location') && (
+            <p className="mt-1 text-sm text-red-600">Please select your country</p>
+          )}
         </div>
       </div>
-      
+
       <MultipleChoice
         title="What's your occupation?"
         field="occupation"
         options={[
-          'Student', 'Engineer', 'Doctor', 'Teacher', 'House Wife', 'Business Owner',
-          'Lawyer', 'Healthcare Worker', 'Finance', 'Technology', 'Imam/Religious Leader', 'Other'
+          'Student', 'Engineer', 'Doctor', 'Teacher', 'Business Owner',
+          'Lawyer', 'Healthcare Worker', 'Finance', 'Technology', 'Imam/Religious Leader', 'Other', 'No Occupation'
         ]}
         formData={formData}
         handleInputChange={handleInputChange}
         handleArrayChange={handleArrayChange}
+        required
+        showError={showError('occupation')}
       />
-      
+
       <MultipleChoice
         title="Education Level"
         field="education"
@@ -51,7 +112,86 @@ const BasicInfo = ({ formData, handleInputChange, handleArrayChange }) => {
         formData={formData}
         handleInputChange={handleInputChange}
         handleArrayChange={handleArrayChange}
+        required
+        showError={showError('education')}
       />
+
+      {/* Language Section */}
+      <div className="space-y-4">
+        <label className="block text-sm font-medium text-gray-700">
+          What languages can you speak?
+          <span className="block text-sm text-gray-500">
+            Please describe fluency level as well.
+          </span>
+        </label>
+
+        {selectedLanguages.length === 0 && touchedFields.languages && (
+          <p className="text-sm text-red-600">Please add at least one language</p>
+        )}
+
+        {selectedLanguages.map((entry, index) => (
+          <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+            <div>
+              <label className="text-sm">Language</label>
+              <select
+                value={entry.language}
+                onChange={(e) => handleLanguageChange(index, 'language', e.target.value)}
+                onBlur={() => handleFieldBlur('languages')}
+                className={`w-full p-4 border ${
+                  !entry.language && touchedFields.languages ? 'border-red-500' : 'border-gray-300'
+                } rounded-xl focus:ring-2 focus:ring-green-800 focus:border-transparent`}
+                required
+              >
+                <option value="">Select a language</option>
+                {languages.map((lang) => (
+                  <option key={lang} value={lang}>
+                    {lang}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="text-sm">Fluency</label>
+              <select
+                value={entry.fluency}
+                onChange={(e) => handleLanguageChange(index, 'fluency', e.target.value)}
+                onBlur={() => handleFieldBlur('languages')}
+                className={`w-full p-4 border ${
+                  !entry.fluency && touchedFields.languages ? 'border-red-500' : 'border-gray-300'
+                } rounded-xl focus:ring-2 focus:ring-green-800 focus:border-transparent`}
+                required
+              >
+                <option value="">Select fluency level</option>
+                {fluencyLevels.map((level) => (
+                  <option key={level} value={level}>
+                    {level}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <button
+              onClick={() => handleRemoveLanguage(index)}
+              className="text-red-600 hover:underline text-sm mt-2 md:mt-0"
+              type="button"
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+
+        <button
+          onClick={() => {
+            handleAddLanguage();
+            handleFieldBlur('languages');
+          }}
+          className="mt-2 text-green-700 hover:underline text-sm"
+          type="button"
+        >
+          + Add Language
+        </button>
+      </div>
     </div>
   );
 };

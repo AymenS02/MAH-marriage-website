@@ -1,4 +1,4 @@
-import mah_logo from './mah-logo.webp'
+import logo from './logo.png'
 import salam_arabic from './salam-arabic.png'
 import arrow from './arrow.png'
 import muslim_man from './muslim-man.avif'
@@ -6,9 +6,11 @@ import facebook_icon from './facebook-icon.png'
 import twitter_icon from './twitter-icon.png'
 import instagram_icon from './instagram-icon.png'
 import youtube_icon from './youtube-icon.png'
+import reda from './reda.png'
 
 export const assets = {
-    mah_logo,
+    reda,
+    logo,
     salam_arabic,
     arrow,
     muslim_man,
@@ -129,6 +131,17 @@ export const profile_data = [
         location: "Edmonton",
         education: "Bachelor's",
         profession: "Marketing Specialist",
+        date: Date.now(),
+    },
+    {
+        id: 11,
+        name: "Zayn Fadel",
+        age: 23,
+        gender: "Male",
+        ethnicity: "Yemeni",
+        location: "Aden",
+        education: "Bachelor's",
+        profession: "IT",
         date: Date.now(),
     },
 

@@ -3,6 +3,7 @@ import { Heart, Users, Shield, CheckCircle, ArrowRight, Star, MessageCircle, Cal
 import Image from 'next/image';
 import { assets } from '@/assets/assets';
 import { useRouter } from 'next/navigation';
+import Header from './Header';
 
 const LandingPage = () => {
   const [isVisible, setIsVisible] = useState({});
@@ -114,21 +115,7 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-white">
       {/* Header */}
-      <header className="hidden lg:block bg-gradient-to-br from-green-800 to-green-600 text-black py-5 px-5 md:px-12 lg:px-28 backdrop-blur-sm sticky top-0 z-50 border-green-100">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="  rounded-full flex items-center justify-center">
-                <Image src={assets.mah_logo} alt='' width={200} height={400} className='' />
-            </div>
-          </div>
-          <button 
-            onClick={handleBeginApplication}
-            className="flex items-center gap-2 py-2 px-4 sm:py-3 sm:px-6 bg-white text-green-800 font-medium rounded-xl text-lg transition-all duration-300 hover:scale-105 shadow-2xl hover:shadow-green-900/25 border border-transparent hover:border-green-200"
-          >
-            Login/Register <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section className="py-[25vh] px-5 md:px-12 lg:px-28">
@@ -190,6 +177,16 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* Who is Shaykh Reda? Section */}
+      <section id="imam" className="py-20 px-5 md:px-12 lg:px-28 bg-gradient-to-br from-green-50 to-white">
+        <div className="max-w-3xl mx-auto text-center">
+          <Image
+            src={assets.reda} alt="Shaykh Reda Bedier" className=""
+            width={500} height={500} layout="responsive"
+          />
+          </div>
       </section>
 
       {/* How It Works Section */}

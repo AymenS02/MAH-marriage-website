@@ -1,7 +1,7 @@
 // components/questionnaire/ProgressBar.jsx
 import React from 'react';
 import { User, MapPin, Coffee, Heart, Music, Star, Calendar, Book } from 'lucide-react';
-
+// This component renders a progress bar for the questionnaire, showing the current step and overall progress.
 const ProgressBar = ({ currentStep }) => {
   const steps = [
     { title: 'Account Setup', icon: User },
