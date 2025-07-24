@@ -7,8 +7,10 @@ import twitter_icon from './twitter-icon.png'
 import instagram_icon from './instagram-icon.png'
 import youtube_icon from './youtube-icon.png'
 import reda from './reda.png'
+import wing from './wing.png'
 
 export const assets = {
+    wing,
     reda,
     logo,
     salam_arabic,

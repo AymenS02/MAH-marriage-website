@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { assets } from '@/assets/assets';
 import { useRouter } from 'next/navigation';
 import Header from './Header';
+import './LandingPage.css';
 
 const LandingPage = () => {
   const [isVisible, setIsVisible] = useState({});
@@ -180,14 +181,50 @@ const LandingPage = () => {
       </section>
 
       {/* Who is Shaykh Reda? Section */}
-      <section id="imam" className="py-20 px-5 md:px-12 lg:px-28 bg-gradient-to-br from-green-50 to-white">
-        <div className="max-w-3xl mx-auto text-center">
-          <Image
-            src={assets.reda} alt="Shaykh Reda Bedier" className=""
-            width={500} height={500} layout="responsive"
-          />
+      <section id="imam" className="flex max-md:flex-col items-center justify-center md:gap-[120px] xl:gap-[300px] py-20 px-5 md:px-12 lg:px-28 bg-green-100">
+        <div className="flex flex-col">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-16">
+            Who is Shaykh Reda Bedeir?
+          </h2>
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <p className="text-lg text-gray-700 mb-6">
+              Shaykh Reda Bedeir, PhD, carries a life-time worth of achievements. From the land of Egypt, he was invited by the University of Calgary to teach Quranic Classical Arabic, and also served as an Imam for the Calgary Islamic Centre.
+            </p>
+            <p className="text-lg text-gray-700 mb-6">
+              He then moved to Burnaby, BC to serve as Imam and Muslim Chaplain at Simon Fraser University. Shaykh Reda holds two Bachelor's degrees (one in Islamic Sciences with Al Azhar University), a Master's degree, and a PhD with Al Azhar University in Applied Linguistics and Tafsir of Surat Yusuf.
+            </p>
+            <p className="text-lg text-gray-700 mb-6">
+              He has learned under prominent shuyukh such as: Dr. Sayed Noah, Sh. Abdul-Rahman Abdul-Khaliq, Dr. Salah As-Sawy, Dr. Muhammad Yusri and Dr. Abdullah Barakat.
+            </p>
+            <p className="text-lg text-gray-700">
+              Shaykh Reda has worked in numerous fields including as a UN Interpreter and Translator, and has authored many researches and papers. He currently serves as a sessional Instructor in the Interdisciplinary Studies Program of Religious Studies at the University of Alberta in Edmonton, Alberta.
+            </p>
           </div>
+        </div>
+        <div className="relative">
+          {/* Reda Image - behind */}
+          <Image
+            src={assets.reda}
+            alt="Shaykh Reda Bedier"
+            width={500}
+            height={500}
+            className="relative z-0"
+            style={{
+              animation: 'float 4s ease-in-out infinite',
+            }}
+          />
+          {/* Wing Image - in front */}
+          <Image
+            src={assets.wing}
+            alt="Wing Shape"
+            width={500}
+            height={500}
+            className="absolute top-0 left-0 z-10 pointer-events-none"
+          />
+        </div>
       </section>
+
+
 
       {/* How It Works Section */}
       <section id="process" className="py-20 px-5 md:px-12 lg:px-28 bg-gradient-to-br from-green-50 to-white">
