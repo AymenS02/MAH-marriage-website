@@ -1,19 +1,14 @@
-'use client'
+'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Heart } from 'lucide-react';
 import { useQuestionnaireForm } from '@/hooks/useQuestionnaireForm';
 import ProgressBar from './ProgressBar';
 import NavigationButtons from './NavigationButtons';
 
-// Import step components
+// Step components
 import AccountSetup from './steps/AccountSetup';
 import BasicInfo from './steps/BasicInfo';
-import IslamicPractice from './steps/IslamicPractice';
-import ValuesBeliefs from './steps/ValuesBeliefs';
-import Interests from './steps/Interests';
-import Preferences from './steps/Preferences';
-import LookingFor from './steps/LookingFor';
 import FreeFormDetails from './steps/FreeFormDetails';
 
 const QuestionnaireWrapper = () => {
@@ -24,60 +19,52 @@ const QuestionnaireWrapper = () => {
     handleArrayChange,
     nextStep,
     prevStep,
-    handleSubmit
+    handleSubmit,
   } = useQuestionnaireForm();
+
+  const [canProceed, setCanProceed] = useState(false);
 
   const steps = [
     { title: 'Account Setup', component: AccountSetup },
     { title: 'Basic Info', component: BasicInfo },
-    { title: 'Islamic Practice', component: IslamicPractice },
-    { title: 'Values & Beliefs', component: ValuesBeliefs },
-    { title: 'Interests', component: Interests },
-    { title: 'Preferences', component: Preferences },
-    { title: 'Looking For', component: LookingFor },
-    { title: 'Tell Us More', component: FreeFormDetails }
+    { title: 'Tell Us More', component: FreeFormDetails },
   ];
 
-  // Enhanced validation logic for each step
   const isStepValid = () => {
-    switch(currentStep) {
-      case 0: // Account Setup
-        return formData.name?.trim() && 
-               formData.email?.trim() && 
-               formData.password?.trim();
-      
-      case 1: // Basic Info - Updated with all required fields
-        const hasValidLanguages = formData.languages?.length > 0 && 
-          formData.languages.every(lang => lang.language && lang.fluency);
-        
-        return formData.age && 
-               formData.location && 
-               formData.occupation && 
-               formData.education &&
-               hasValidLanguages;
-      
-      case 2: // Islamic Practice
-        return formData.prayerFrequency && formData.fasting;
-      
-      case 3: // Values & Beliefs
-        return formData.importantValues && formData.marriageGoals;
-      
-      case 4: // Interests
-        return formData.hobbies && formData.interests;
-      
-      case 5: // Preferences
-        return formData.preferredAgeRange && formData.preferredLocation;
-      
-      case 6: // Looking For
-        return formData.partnerQualities && formData.dealBreakers;
-      
-      case 7: // Free Form Details
-        return true; // Optional step
-      
+    switch (currentStep) {
+      case 0:
+        return formData.name?.trim() && formData.email?.trim() && formData.password?.trim();
+
+      case 1:
+        const hasValidLanguages =
+          formData.languages?.length > 0 &&
+          formData.languages.every((lang) => lang.language && lang.fluency);
+        return (
+          formData.age > 0 &&
+          formData.location?.trim() &&
+          formData.occupation?.trim() &&
+          formData.education?.trim() &&
+          hasValidLanguages &&
+          formData.citizenshipStatus?.trim() &&
+          formData.relocation?.trim() &&
+          formData.maritalHistory?.trim() &&
+          formData.children?.trim()
+        );
+
+      case 2: // Tell Us More (FreeFormDetails)
+        return formData.aboutMe?.trim() && 
+               formData.lookingForDetails?.trim() && 
+               formData.additionalInfo?.trim();
+
       default:
         return false;
     }
   };
+
+  useEffect(() => {
+    // Use central validation for all steps
+    setCanProceed(!!isStepValid());
+  }, [formData, currentStep]);
 
   const CurrentStepComponent = steps[currentStep].component;
 
@@ -100,13 +87,11 @@ const QuestionnaireWrapper = () => {
         {/* Progress Bar */}
         <ProgressBar currentStep={currentStep} />
 
-        {/* Main Content */}
+        {/* Step Content */}
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                {steps[currentStep].title}
-              </h2>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">{steps[currentStep].title}</h2>
               <p className="text-gray-600">
                 Step {currentStep + 1} of {steps.length}
               </p>
@@ -125,7 +110,8 @@ const QuestionnaireWrapper = () => {
             prevStep={prevStep}
             nextStep={nextStep}
             handleSubmit={handleSubmit}
-            isNextDisabled={!isStepValid()}
+            isNextDisabled={!canProceed}
+            isDoneDisabled={!canProceed}
           />
         </div>
       </div>

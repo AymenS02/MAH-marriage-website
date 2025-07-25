@@ -6,9 +6,10 @@ const NavigationButtons = ({
   prevStep,
   nextStep,
   handleSubmit,
-  isNextDisabled = false // Default to false if not provided
+  isNextDisabled = false, // Default to false if not provided
+  isDoneDisabled = false
 }) => {
-  const isLastStep = currentStep === 7;
+  const isLastStep = currentStep === 2;
 
   return (
     <div className="flex justify-between items-center">
@@ -28,7 +29,12 @@ const NavigationButtons = ({
       {isLastStep ? (
         <button
           onClick={handleSubmit}
-          className="flex items-center px-8 py-3 bg-gradient-to-r from-green-800 to-black text-white rounded-xl font-medium hover:from-green-700 hover:to-gray-800 transition-all shadow-lg"
+          disabled={isDoneDisabled}
+          className={`flex items-center px-6 py-3 rounded-xl font-medium shadow-lg transition-all duration-300 ease-in-out ${
+            isDoneDisabled
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              : 'bg-green-800 text-white hover:bg-green-700'
+          }`}
         >
           <Send className="w-5 h-5 mr-2" />
           Create Profile
@@ -37,10 +43,10 @@ const NavigationButtons = ({
         <button
           onClick={nextStep}
           disabled={isNextDisabled}
-          className={`flex items-center px-6 py-3 rounded-xl font-medium transition-all shadow-lg ${
+          className={`flex items-center px-6 py-3 rounded-xl font-medium shadow-lg transition-all duration-300 ease-in-out ${
             isNextDisabled
               ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-gradient-to-r from-green-800 to-black text-white hover:from-green-700 hover:to-gray-800'
+              : 'bg-green-800 text-white hover:bg-green-700'
           }`}
         >
           Next

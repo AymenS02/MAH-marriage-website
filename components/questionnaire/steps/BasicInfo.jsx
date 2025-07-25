@@ -116,6 +116,58 @@ const BasicInfo = ({ formData, handleInputChange, handleArrayChange }) => {
         showError={showError('education')}
       />
 
+      <MultipleChoice
+        title="Citizenship Status in Canada"
+        field="citizenshipStatus"
+        options={[
+          'Canadian Citizen', 'Permanent Resident', 'Visa (work/study/tourist/etc)', 'Other (please mention in extra info later)'
+        ]}
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleArrayChange={handleArrayChange}
+        required
+        showError={showError('citizenshipStatus')}
+      />
+
+      <MultipleChoice
+        title="What is your marital history?"
+        field="maritalHistory"
+        options={[
+          'Not Applicable', 'Married', 'Divorced', 'Previously Engaged', 'Other (please mention in extra info later)'
+        ]}
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleArrayChange={handleArrayChange}
+        required
+        showError={showError('maritalHistory')}
+      />
+
+      <MultipleChoice
+        title="Do you have any children?"
+        field="children"
+        options={[
+          'Yes', 'No', 'Other (please mention in extra info later)'
+        ]}
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleArrayChange={handleArrayChange}
+        required
+        showError={showError('children')}
+      />
+
+      <MultipleChoice
+        title="Are you open to relocating?"
+        field="relocation"
+        options={[
+          'Yes', 'No'
+        ]}
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleArrayChange={handleArrayChange}
+        required
+        showError={showError('relocation')}
+      />
+
       {/* Language Section */}
       <div className="space-y-4">
         <label className="block text-sm font-medium text-gray-700">
