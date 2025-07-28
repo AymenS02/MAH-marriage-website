@@ -46,7 +46,9 @@ const BasicInfo = ({ formData, handleInputChange, handleArrayChange }) => {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
         <div>
+        
           <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
           <input
             type="number"
@@ -87,6 +89,19 @@ const BasicInfo = ({ formData, handleInputChange, handleArrayChange }) => {
           )}
         </div>
       </div>
+      
+      <MultipleChoice
+        title="What's your gender?"
+        field="gender"
+        options={[
+          'Male', 'Female'
+        ]}
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleArrayChange={handleArrayChange}
+        required
+        showError={showError('gender')}
+      />
 
       <MultipleChoice
         title="What's your occupation?"
@@ -107,7 +122,7 @@ const BasicInfo = ({ formData, handleInputChange, handleArrayChange }) => {
         field="education"
         options={[
           'High School', 'Some College', 'Bachelor\'s Degree', 'Master\'s Degree',
-          'PhD/Doctorate', 'Islamic Studies', 'Hafiz/Hafiza', 'Trade School'
+          'PhD/Doctorate', 'Islamic Studies', 'Trade School', 'None', 'Other (please mention in extra info later)'
         ]}
         formData={formData}
         handleInputChange={handleInputChange}
@@ -166,6 +181,32 @@ const BasicInfo = ({ formData, handleInputChange, handleArrayChange }) => {
         handleArrayChange={handleArrayChange}
         required
         showError={showError('relocation')}
+      />
+
+      <MultipleChoice
+        title="Are you a revert?"
+        field="revert"
+        options={[
+          'Yes', 'No'
+        ]}
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleArrayChange={handleArrayChange}
+        required
+        showError={showError('revert')}
+      />
+
+      <MultipleChoice
+        title="Do you have any medical conditions a spouse should be aware of?"
+        field="medicalConditions"
+        options={[
+          'Yes', 'No'
+        ]}
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleArrayChange={handleArrayChange}
+        required
+        showError={showError('medicalConditions')}
       />
 
       {/* Language Section */}

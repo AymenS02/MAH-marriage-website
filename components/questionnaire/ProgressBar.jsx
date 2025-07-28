@@ -6,6 +6,8 @@ const ProgressBar = ({ currentStep }) => {
   const steps = [
     { title: 'Account Setup', icon: User },
     { title: 'Basic Info', icon: MapPin },
+    { title: 'Preferences', icon: Heart },
+    { title: 'References', icon: Coffee },
     { title: 'Tell Us More', icon: Book }
   ];
 

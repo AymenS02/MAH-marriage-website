@@ -9,7 +9,7 @@ const NavigationButtons = ({
   isNextDisabled = false, // Default to false if not provided
   isDoneDisabled = false
 }) => {
-  const isLastStep = currentStep === 2;
+  const isLastStep = currentStep === 4;
 
   return (
     <div className="flex justify-between items-center">

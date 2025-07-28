@@ -9,6 +9,8 @@ import NavigationButtons from './NavigationButtons';
 // Step components
 import AccountSetup from './steps/AccountSetup';
 import BasicInfo from './steps/BasicInfo';
+import Preferences from './steps/Preferences';
+import References from './steps/References';
 import FreeFormDetails from './steps/FreeFormDetails';
 
 const QuestionnaireWrapper = () => {
@@ -27,19 +29,22 @@ const QuestionnaireWrapper = () => {
   const steps = [
     { title: 'Account Setup', component: AccountSetup },
     { title: 'Basic Info', component: BasicInfo },
+    { title: 'Preferences', component: Preferences },
+    { title: 'References', component: References },
     { title: 'Tell Us More', component: FreeFormDetails },
   ];
 
   const isStepValid = () => {
     switch (currentStep) {
       case 0:
-        return formData.name?.trim() && formData.email?.trim() && formData.password?.trim();
+        return formData.name?.trim() && formData.email?.trim() && formData.password?.trim() && formData.phone?.trim();
 
       case 1:
         const hasValidLanguages =
           formData.languages?.length > 0 &&
           formData.languages.every((lang) => lang.language && lang.fluency);
         return (
+          formData.gender?.trim() &&
           formData.age > 0 &&
           formData.location?.trim() &&
           formData.occupation?.trim() &&
@@ -48,12 +53,23 @@ const QuestionnaireWrapper = () => {
           formData.citizenshipStatus?.trim() &&
           formData.relocation?.trim() &&
           formData.maritalHistory?.trim() &&
-          formData.children?.trim()
+          formData.children?.trim() &&
+          formData.revert?.trim() &&
+          formData.medicalConditions?.trim()
         );
 
-      case 2: // Tell Us More (FreeFormDetails)
-        return formData.aboutMe?.trim() && 
-               formData.lookingForDetails?.trim() && 
+      case 2: // Preferences
+        return formData.preferences?.trim();
+
+      case 3: // References
+        return (
+          formData.references?.length > 1 &&
+          formData.references.every((ref) => ref.name?.trim() && ref.relationship?.trim() && ref.contact?.trim())
+        );
+
+      case 4: // Tell Us More (FreeFormDetails)
+        return formData.aboutMe?.trim() &&
+               formData.lookingForDetails?.trim() &&
                formData.additionalInfo?.trim();
 
       default:

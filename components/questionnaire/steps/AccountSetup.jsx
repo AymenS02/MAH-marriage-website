@@ -28,6 +28,18 @@ const AccountSetup = ({ formData, handleInputChange, isNextDisabled }) => {
             required
           />
         </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+          <input
+            type="tel"
+            value={formData.phone}
+            onChange={(e) => handleInputChange('phone', e.target.value)}
+            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-800 focus:border-transparent"
+            placeholder="+1 (123) 456-7890"
+            required
+          />
+        </div>
         
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
