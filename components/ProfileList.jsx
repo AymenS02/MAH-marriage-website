@@ -50,7 +50,7 @@ const ProfileList = () => {
 
   return (
     <div className='bg-white py-5 md:px-20'>
-      {/* Filter buttons - maintaining original styling */}
+      {/* Filter buttons */}
       <div className="flex justify-center gap-10 py-10">
         <button 
           onClick={() => setMenu('All')} 
@@ -78,11 +78,23 @@ const ProfileList = () => {
         </button>
       </div>
       
-      {/* Profile grid - maintaining original styling */}
+      {/* Profile grid */}
       <div className="flex flex-wrap justify-around gap-1 gap-y-10 mb-16 xl:mx-24">
-{filteredData.map((profile) => (
-  <ProfileItem key={profile._id} profile={profile} />
-))}
+        {filteredData.map((profile) => (
+          <ProfileItem
+            key={profile._id}
+            profile={{
+              _id: profile._id,
+              name: profile.name,
+              age: profile.age,
+              gender: profile.gender,
+              occupation: profile.occupation,
+              education: profile.education,
+              citizenshipStatus: profile.citizenshipStatus, // Keep original name
+              languages: profile.languages
+            }}
+          />
+        ))}
       </div>
     </div>
   )

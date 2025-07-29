@@ -7,8 +7,12 @@ const ProfileItem = ({ profile }) => {
   const router = useRouter()
 
   const handleClick = () => {
+    console.log('ProfileItem: Clicked profile with ID:', profile?._id);
+    console.log('ProfileItem: Full profile data:', profile);
     if (profile?._id) {
       router.push(`/profiles/${profile._id}`)
+    } else {
+      console.error('ProfileItem: No _id found in profile');
     }
   }
 
@@ -45,7 +49,7 @@ const ProfileItem = ({ profile }) => {
             <p><b>Languages:</b> {profile?.languages?.map(lang => lang.language).join(', ') || 'None'}</p>
           </div>
         </div>
-
+                
         {/* Read More Button */}
         <div className="px-5 pb-5">
           <span className="inline-flex items-center py-2 font-semibold text-center">

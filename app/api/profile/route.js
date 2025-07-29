@@ -1,6 +1,7 @@
 import { ConnectDB } from '@/lib/config/db';
 import ProfileModel from '@/lib/models/ProfileModel';
 import { NextResponse } from 'next/server';
+import mongoose from 'mongoose';
 
 let dbConnected = false;
 
@@ -11,39 +12,81 @@ const LoadDB = async () => {
   }
 };
 
-// GET all profiles (for ProfileList)
+// GET - Fetch profile(s)
 export async function GET(request) {
   try {
     await LoadDB();
     
-    // Check if route is /api/profile/[id]
     const path = request.nextUrl.pathname.split('/');
+    
+    // Handle single profile request (GET /api/profile/[id])
     if (path.length === 4) {
       const id = path[3];
+      console.log('API: Searching for profile with ID:', id);
+      console.log('API: Path segments:', path);
+      
+      // Check if the ID is a valid MongoDB ObjectId
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        console.log('API: Invalid ObjectId format');
+        return NextResponse.json(
+          { error: 'Invalid profile ID format' },
+          { status: 400 }
+        );
+      }
+      
       const profile = await ProfileModel.findById(id);
+      console.log('API: Profile found:', !!profile);
       
       if (!profile) {
+        console.log('API: No profile found in database');
         return NextResponse.json(
           { error: 'Profile not found' },
           { status: 404 }
         );
       }
       
-      return NextResponse.json(profile);
+      // Return FULL profile data for detail page
+      return NextResponse.json({
+        _id: profile._id,
+        name: profile.name,
+        email: profile.email,
+        phone: profile.phone,
+        age: profile.age,
+        gender: profile.gender,
+        ethnicity: profile.ethnicity,
+        occupation: profile.occupation,
+        education: profile.education,
+        citizenshipStatus: profile.citizenshipStatus,
+        maritalHistory: profile.maritalHistory,
+        children: profile.children,
+        relocation: profile.relocation,
+        revert: profile.revert,
+        medicalConditions: profile.medicalConditions,
+        languages: profile.languages || [],
+        aboutMe: profile.aboutMe,
+        lookingForDetails: profile.lookingForDetails,
+        additionalInfo: profile.additionalInfo,
+        preferences: profile.preferences,
+        references: profile.references || [],
+        image: profile.image || null
+      });
     }
     
-    // Default: return all profiles
+    // Default: return SIMPLIFIED profiles for list view
     const profiles = await ProfileModel.find({}).lean();
+    console.log('API: Found', profiles.length, 'profiles in database');
+    console.log('API: Profile IDs:', profiles.map(p => p._id));
     
-    // Only return necessary fields for list view
     const simplifiedProfiles = profiles.map(profile => ({
       _id: profile._id,
       name: profile.name,
       age: profile.age,
       gender: profile.gender,
-      ethnicity: profile.ethnicity,
       occupation: profile.occupation,
-      // Add other fields you want to display in the list
+      education: profile.education,
+      citizenshipStatus: profile.citizenshipStatus,
+      languages: profile.languages || [],
+      aboutMe: profile.aboutMe, // For the preview card
       image: profile.image || null
     }));
     

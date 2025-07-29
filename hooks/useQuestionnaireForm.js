@@ -4,51 +4,34 @@
 import { useState } from 'react';
 
 export const useQuestionnaireForm = () => {
-
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
-
     // Account Info
     name: '',
     email: '',
     password: '',
-    
+    phone: '',
+
     // Basic Info
-    age: '',
+    gender: '',
+    age: 0,
     ethnicity: '',
     occupation: '',
     education: '',
-    
-    // Islamic Practice
-    prayer: '',
-    modesty: '',
-    diet: '',
-    
-    // Personality & Values
-    personality: '',
-    islamicKnowledge: '',
-    madhab: '',
-    familyPlans: '',
-    
-    // Interests
-    hobbies: [],
-    islamicActivities: [],
-    entertainment: '',
-    travelStyle: '',
-    
-    // Relationship Preferences
-    relationshipType: '',
-    idealDate: '',
-    spouseQualities: [],
-    dealBreakers: [],
-    
-    // Looking for (multiple choice)
-    lookingForAge: '',
-    lookingForEducation: '',
-    lookingForOccupation: '',
-    lookingForLocation: '',
-    lookingForPracticeLevel: '',
-    
+    languages: [], // Array of { language: string, fluency: string }
+    citizenshipStatus: '',
+    relocation: '',
+    maritalHistory: '',
+    children: '',
+    revert: '',
+    medicalConditions: '',
+
+    // Preferences
+    preferences: '',
+
+    // References
+    references: [], // Array of { name: string, relationship: string, contact: string }
+
     // Free form details
     aboutMe: '',
     lookingForDetails: '',
@@ -62,17 +45,47 @@ export const useQuestionnaireForm = () => {
     }));
   };
 
-  const handleArrayChange = (field, value) => {
+  const handleArrayChange = (field, value, index = null, subField = null) => {
+    setFormData(prev => {
+      // For nested objects in arrays (like languages or references)
+      if (index !== null && subField) {
+        const updatedArray = [...prev[field]];
+        updatedArray[index] = {
+          ...updatedArray[index],
+          [subField]: value
+        };
+        return {
+          ...prev,
+          [field]: updatedArray
+        };
+      }
+      
+      // For simple arrays (toggle behavior)
+      return {
+        ...prev,
+        [field]: prev[field].includes(value) 
+          ? prev[field].filter(item => item !== value)
+          : [...prev[field], value]
+      };
+    });
+  };
+
+  const addArrayItem = (field, initialValue) => {
     setFormData(prev => ({
       ...prev,
-      [field]: prev[field].includes(value) 
-        ? prev[field].filter(item => item !== value)
-        : [...prev[field], value]
+      [field]: [...prev[field], initialValue]
+    }));
+  };
+
+  const removeArrayItem = (field, index) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: prev[field].filter((_, i) => i !== index)
     }));
   };
 
   const nextStep = () => {
-    if (currentStep < 7) {
+    if (currentStep < 4) { // Updated to match 5 steps (0-4)
       setCurrentStep(currentStep + 1);
     }
   };
@@ -90,11 +103,7 @@ export const useQuestionnaireForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          age: Number(formData.age), // Ensure age is number
-          // No need to manually stringify arrays - JSON.stringify does it automatically
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
@@ -114,8 +123,11 @@ export const useQuestionnaireForm = () => {
     currentStep,
     setCurrentStep,
     formData,
+    setFormData,
     handleInputChange,
     handleArrayChange,
+    addArrayItem,
+    removeArrayItem,
     nextStep,
     prevStep,
     handleSubmit
