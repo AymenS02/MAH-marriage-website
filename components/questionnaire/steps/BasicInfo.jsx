@@ -67,25 +67,25 @@ const BasicInfo = ({ formData, handleInputChange, handleArrayChange }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Country of Residence</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Ethnicity</label>
           <select
-            value={formData.location}
-            onChange={(e) => handleInputChange('location', e.target.value)}
-            onBlur={() => handleFieldBlur('location')}
+            value={formData.ethnicity}
+            onChange={(e) => handleInputChange('ethnicity', e.target.value)}
+            onBlur={() => handleFieldBlur('ethnicity')}
             className={`w-full p-4 border ${
-              showError('location') ? 'border-red-500' : 'border-gray-300'
+              showError('ethnicity') ? 'border-red-500' : 'border-gray-300'
             } rounded-xl focus:ring-2 focus:ring-green-800 focus:border-transparent`}
             required
           >
-            <option value="">Select a country</option>
+            <option value="">Select your ethnicity</option>
             {countries.map((country) => (
               <option key={country} value={country}>
                 {country}
               </option>
             ))}
           </select>
-          {showError('location') && (
-            <p className="mt-1 text-sm text-red-600">Please select your country</p>
+          {showError('ethnicity') && (
+            <p className="mt-1 text-sm text-red-600">Please select your ethnicity</p>
           )}
         </div>
       </div>

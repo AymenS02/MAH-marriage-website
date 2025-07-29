@@ -2,6 +2,7 @@
 import React from 'react';
 
 const AccountSetup = ({ formData, handleInputChange, isNextDisabled }) => {
+  
   return (
     <div className="space-y-6">
       <div className="space-y-4">

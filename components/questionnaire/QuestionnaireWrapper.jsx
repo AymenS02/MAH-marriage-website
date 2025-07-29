@@ -46,7 +46,7 @@ const QuestionnaireWrapper = () => {
         return (
           formData.gender?.trim() &&
           formData.age > 0 &&
-          formData.location?.trim() &&
+          formData.ethnicity?.trim() &&
           formData.occupation?.trim() &&
           formData.education?.trim() &&
           hasValidLanguages &&

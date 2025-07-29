@@ -2,10 +2,9 @@
 'use client'
 
 import { useState } from 'react';
-// Ask Do you have any genetic medical conditions?
-// Do you follow a madhab?
-// Questions about looks?
+
 export const useQuestionnaireForm = () => {
+
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
 
@@ -16,7 +15,7 @@ export const useQuestionnaireForm = () => {
     
     // Basic Info
     age: '',
-    location: '',
+    ethnicity: '',
     occupation: '',
     education: '',
     
@@ -84,9 +83,31 @@ export const useQuestionnaireForm = () => {
     }
   };
 
-  const handleSubmit = () => {
-    console.log('Form submitted:', { ...formData });
-    alert('Profile created successfully! 💕');
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('/api/profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          age: Number(formData.age), // Ensure age is number
+          // No need to manually stringify arrays - JSON.stringify does it automatically
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('Success:', result);
+      alert('Profile created successfully! 💕');
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert(`Failed to create profile: ${error.message}`);
+    }
   };
 
   return {
