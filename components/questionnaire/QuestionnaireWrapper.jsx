@@ -55,6 +55,7 @@ const QuestionnaireWrapper = () => {
           formData.maritalHistory?.trim() &&
           formData.children?.trim() &&
           formData.revert?.trim() &&
+          formData.hijab?.trim() &&
           formData.medicalConditions?.trim()
         );
 

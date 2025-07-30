@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { assets } from '@/assets/assets'
 import { useRouter } from 'next/navigation'
+import Header from '@/components/Header'
+import Head from 'next/head'
 
 export default function ProfilePage({ params }) {
   const [profile, setProfile] = useState(null)
@@ -63,24 +65,7 @@ export default function ProfilePage({ params }) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-green-800 py-5 px-5 md:px-12 lg:px-28">
-        <div className="flex justify-between items-center">
-          <Image
-            src={assets.mah_logo}
-            alt="Mah Logo"
-            width={180}
-            className="w-[130px] sm:w-auto cursor-pointer"
-            onClick={() => router.push('/')}
-          />
-          <button
-            onClick={() => router.push('/questionnaire')}
-            className="flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6 bg-white text-black border border-black shadow-[7px_7px_0px_#000000] hover:shadow-[5px_5px_0px_#000000] transition-all duration-300 ease-in-out"
-          >
-            Create Profile{' '}
-            <Image src={assets.arrow} alt="Arrow" width={12} className="ml-2" />
-          </button>
-        </div>
-      </div>
+      <Header />
 
       {/* Profile Content */}
       <div className="max-w-6xl mx-auto px-4 py-12">

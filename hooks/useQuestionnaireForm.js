@@ -24,6 +24,7 @@ export const useQuestionnaireForm = () => {
     maritalHistory: '',
     children: '',
     revert: '',
+    hijab: '', // New field for hijab preference
     medicalConditions: '',
 
     // Preferences

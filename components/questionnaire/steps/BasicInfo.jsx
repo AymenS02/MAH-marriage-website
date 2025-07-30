@@ -182,7 +182,18 @@ const BasicInfo = ({ formData, handleInputChange, handleArrayChange }) => {
         required
         showError={showError('relocation')}
       />
-
+      <MultipleChoice
+        title="What do you observe about your hijab preference?"
+        field="hijab"
+        options={[
+          'Niqab', 'Hijab and abaya', 'Hijab', 'No hijab', 'Not Applicable'
+        ]}
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleArrayChange={handleArrayChange}
+        required
+        showError={showError('hijab')}
+      />
       <MultipleChoice
         title="Are you a revert?"
         field="revert"
