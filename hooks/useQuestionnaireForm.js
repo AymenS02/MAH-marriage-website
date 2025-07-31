@@ -99,6 +99,7 @@ export const useQuestionnaireForm = () => {
 
   const handleSubmit = async () => {
     try {
+      console.log('Submitting form data:', formData); // Debug log
       const response = await fetch('/api/profile', {
         method: 'POST',
         headers: {

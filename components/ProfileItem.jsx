@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-const ProfileItem = ({ id, name, gender, age, aboutMe, occupation, education, citizenshipStatus, languages }) => {
+const ProfileItem = ({ id, name, gender, age, ethnicity, occupation, education, citizenshipStatus, languages, phone }) => {
 
   return (
     <Link 
@@ -29,10 +29,11 @@ const ProfileItem = ({ id, name, gender, age, aboutMe, occupation, education, ci
           </h5>
           
           <p className='mb-3 text-sm tracking-tight text-gray-700 line-clamp-2'>
-            {aboutMe || 'No description available'}
+            Phone #: {phone || 'No phone number available'}
           </p>
 
           <div className='mb-3 space-y-1 text-sm tracking-tight text-gray-700'>
+            <p><b>Ethnicity:</b> {ethnicity || 'Not specified'}</p>
             <p><b>Occupation:</b> {occupation || 'Not specified'}</p>
             <p><b>Education:</b> {education || 'Not specified'}</p>
             <p><b>Status:</b> {citizenshipStatus || 'Not specified'}</p>

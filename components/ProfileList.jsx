@@ -43,11 +43,11 @@ const ProfileList = () => {
 
   if (!loading && profiles.length === 0) return (
     <div className="text-center py-20">
-      <h2 className="text-2xl font-semibold text-gray-800">No profiles found</h2>
-      <p className="text-gray-600 mt-2">Check back later or create a new profile</p>
+      <h2 className="text-2xl font-semibold text-gray-200">No profiles found</h2>
+      <p className="text-gray-300 mt-2">Check back later or create a new profile</p>
       <button 
         onClick={() => router.push('/application')}
-        className="mt-4 bg-green-800 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
+        className="mt-4 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
       >
         Create First Profile
       </button>
@@ -85,7 +85,7 @@ const ProfileList = () => {
       </div>
       
       {/* Profile grid */}
-      <div className="flex flex-wrap justify-around gap-1 gap-y-10 mb-16 xl:mx-24">
+      <div className="flex flex-wrap justify-center gap-20 gap-y-10 mb-16 xl:mx-24">
         {filteredData.map((profile) => (
           <ProfileItem
             key={profile._id}
@@ -93,11 +93,12 @@ const ProfileList = () => {
             name={profile.name}
             age={profile.age}
             gender={profile.gender}
-            aboutMe={profile.aboutMe}
+            ethnicity={profile.ethnicity}
             occupation={profile.occupation}
             education={profile.education}
             citizenshipStatus={profile.citizenshipStatus}
             languages={profile.languages}
+            phone={profile.phone}
           />
         ))}
       </div>

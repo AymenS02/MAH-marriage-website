@@ -1,11 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
-import { assets } from '@/assets/assets'
 import { useRouter } from 'next/navigation'
 import Header from '@/components/Header'
-import Head from 'next/head'
 
 export default function ProfilePage({ params }) {
   const [profile, setProfile] = useState(null)
@@ -53,9 +50,12 @@ export default function ProfilePage({ params }) {
     )
   }
 
-  // Helpers
-  const formatYesNo = (value) =>
-    value === true ? 'Yes' : value === false ? 'No' : value || 'Not specified'
+  // Format helpers
+  const formatYesNo = (value) => {
+    if (!value) return 'Not specified'
+    if (typeof value === 'boolean') return value ? 'Yes' : 'No'
+    return value // handles 'Yes', 'No', 'Other'
+  }
 
   const formatLanguages = () => {
     if (!profile.languages?.length) return 'None specified'
@@ -64,33 +64,51 @@ export default function ProfilePage({ params }) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <Header />
 
-      {/* Profile Content */}
       <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Basic Info */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-          <div className="text-center md:text-left">
-            <h1 className="text-3xl font-bold text-gray-900">{profile.name}</h1>
-            <p className="text-lg text-gray-600 mt-2">
-              {profile.age} years • {profile.ethnicity || 'Ethnicity not specified'}
-            </p>
+          <h1 className="text-3xl font-bold text-gray-900">{profile.name}</h1>
+          <p className="text-lg text-gray-600 mt-2">
+            {profile.age} years • {profile.ethnicity || 'Ethnicity not specified'}
+          </p>
 
-            <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4">
-              <DetailItem label="Occupation" value={profile.occupation} />
-              <DetailItem label="Education" value={profile.education} />
-              <DetailItem label="Status" value={profile.citizenshipStatus} />
-            </div>
+          <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4">
+            <DetailItem label="Email" value={profile.email} />
+            <DetailItem label="Phone" value={profile.phone} />
+            <DetailItem label="Occupation" value={profile.occupation} />
+            <DetailItem label="Education" value={profile.education} />
+            <DetailItem label="Citizenship Status" value={profile.citizenshipStatus} />
           </div>
         </div>
 
-        {/* Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column */}
           <div className="space-y-6 lg:col-span-2">
             <Section title="About Me" content={profile.aboutMe} />
             <Section title="What I'm Looking For" content={profile.lookingForDetails} />
+            <Section title="Additional Information" content={profile.additionalInfo} />
+            <Section title="Preferences" content={profile.preferences} />
+
+            {/* References */}
+            {profile.references?.length > 0 && (
+              <div className="bg-white rounded-xl shadow-lg p-6">
+                <h2 className="text-xl font-semibold mb-4 text-green-800 border-b pb-2">
+                  References
+                </h2>
+                <ul className="space-y-3">
+                  {profile.references.map((ref, idx) => (
+                    <li key={idx} className="border rounded-lg p-3">
+                      <p><strong>Name:</strong> {ref.name}</p>
+                      <p><strong>Contact:</strong> {ref.contact}</p>
+                      <p><strong>Relationship:</strong> {ref.relationship}</p>
+                      {ref.duration && <p><strong>Duration:</strong> {ref.duration}</p>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
 
           {/* Right Column */}
@@ -104,24 +122,15 @@ export default function ProfilePage({ params }) {
                 <DetailItem label="Marital History" value={profile.maritalHistory} />
                 <DetailItem label="Children" value={formatYesNo(profile.children)} />
                 <DetailItem label="Willing to Relocate" value={formatYesNo(profile.relocation)} />
+                <DetailItem label="Hijab Preference" value={profile.hijab} />
                 <DetailItem label="Revert" value={formatYesNo(profile.revert)} />
-                <DetailItem
-                  label="Medical Conditions"
-                  value={profile.medicalConditions || 'None specified'}
-                />
+                <DetailItem label="Medical Conditions" value={profile.medicalConditions} />
               </div>
             </div>
 
             <div className="bg-white rounded-xl shadow-lg p-6">
               <h2 className="text-xl font-semibold mb-4 text-green-800 border-b pb-2">Languages</h2>
               <p className="text-gray-700">{formatLanguages()}</p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h2 className="text-xl font-semibold mb-4 text-green-800 border-b pb-2">Preferences</h2>
-              <p className="text-gray-700 whitespace-pre-line">
-                {profile.preferences || 'No preferences specified'}
-              </p>
             </div>
           </div>
         </div>
