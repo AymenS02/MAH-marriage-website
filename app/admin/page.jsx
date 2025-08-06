@@ -12,6 +12,3 @@ export default function Admin() {
     </>
   );
 }
-
-
-// Make a password protection before getting access to the website
