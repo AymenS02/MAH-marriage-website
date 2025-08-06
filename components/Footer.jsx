@@ -21,18 +21,18 @@ const Footer = () => {
                 Connecting hearts through faith, guided by Islamic principles and community values.
               </p>
             </div>
-            <div>
+            {/* <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
                 <li><a onClick={() => window.open("https://www.mahcanada.com/about-us", "_blank")} className="hover:text-green-400 transition-colors">About Us</a></li>
                 <li><a onClick={() => window.open("https://www.mahcanada.com/contact-us", "_blank")} className="hover:text-green-400 transition-colors">Contact</a></li>
               </ul>
-            </div>
+            </div> */}
             <div>
               <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
               <div className="space-y-2 text-gray-400">
-                <p>📧 info@muslimmatrimonial.com</p>
-                <p>📱 +1 (905) -929 -1526</p>
+                {/* <p>📧 info@muslimmatrimonial.com</p> */}
+                {/* <p>📱 +1 (905) -929 -1526</p> */}
                 <p>📍 1545 Stone Church Rd E, Hamilton, ON L8W 3P8</p>
                 {/* <p className="cursor-pointer" onClick={() => window.open("https://www.mahcanada.com", "_blank")}>🌐 www.mahcanada.com</p> */}
               </div>
