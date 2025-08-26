@@ -12,4 +12,3 @@ export default function Home() {
 }
 
 
-// Make a password protection before getting access to the website
