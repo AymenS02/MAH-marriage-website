@@ -58,7 +58,7 @@ const LandingPage = () => {
     {
       icon: <Shield className="w-8 h-8" />,
       title: "Islamic Guidance",
-      description: "Every match is reviewed and guided by our respected Imam, Shaykh Reda Bedier"
+      description: "Every match is reviewed and guided by our respected Imam, Dr. Reda Bedier"
     },
     {
       icon: <Users className="w-8 h-8" />,
@@ -86,7 +86,7 @@ const LandingPage = () => {
     {
       number: "02",
       title: "Imam Review",
-      description: "Shaykh Reda Bedier personally reviews your application and verifies your information"
+      description: "Dr. Reda Bedier personally reviews your application and verifies your information"
     },
     {
       number: "03",
@@ -126,7 +126,7 @@ const LandingPage = () => {
             <span className="text-green-800 block">Spouse</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-12">
-            Guided and Facilitated by our Imam, <b>Shaykh Reda Bedier</b>, in accordance with Islamic principles and community values
+            Guided and Facilitated by our Imam, <b>Dr. Reda Bedier</b>, in accordance with Islamic principles and community values
           </p>
           
           <div className="mb-16">
@@ -180,32 +180,24 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Who is Shaykh Reda? Section */}
+      {/* Who is Dr. Reda? Section */}
       <section id="imam" className="flex max-md:flex-col items-center justify-center md:gap-[120px] xl:gap-[300px] py-20 px-5 md:px-12 lg:px-28 bg-green-100">
-        <div className="flex flex-col">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-16">
-            Who is Shaykh Reda Bedeir?
+        <div className="flex flex-col bg-green-800 p-20 rounded-3xl shadow-xl max-w-3xl transition-all duration-1000 delay-400 my-4 mb-12 md:mb-0">
+          <h2 className="text-4xl sm:text-5xl font-bold text-center text-gray-100 mb-16">
+            Who is Dr. Reda Bedeir?
           </h2>
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <p className="text-lg text-gray-700 mb-6">
-              Shaykh Reda Bedeir, PhD, carries a life-time worth of achievements. From the land of Egypt, he was invited by the University of Calgary to teach Quranic Classical Arabic, and also served as an Imam for the Calgary Islamic Centre.
-            </p>
-            <p className="text-lg text-gray-700 mb-6">
-              He then moved to Burnaby, BC to serve as Imam and Muslim Chaplain at Simon Fraser University. Shaykh Reda holds two Bachelor's degrees (one in Islamic Sciences with Al Azhar University), a Master's degree, and a PhD with Al Azhar University in Applied Linguistics and Tafsir of Surat Yusuf.
-            </p>
-            <p className="text-lg text-gray-700 mb-6">
-              He has learned under prominent shuyukh such as: Dr. Sayed Noah, Sh. Abdul-Rahman Abdul-Khaliq, Dr. Salah As-Sawy, Dr. Muhammad Yusri and Dr. Abdullah Barakat.
-            </p>
-            <p className="text-lg text-gray-700">
-              Shaykh Reda has worked in numerous fields including as a UN Interpreter and Translator, and has authored many researches and papers. He currently serves as a sessional Instructor in the Interdisciplinary Studies Program of Religious Studies at the University of Alberta in Edmonton, Alberta.
+          <div className="max-w-2xl mx-auto text-center text-3xl sm:text-4xl mb-12">
+            <p className="text-lg text-gray-200">
+              Dr. Reda Bedier is a dynamic Islamic scholar and speaker known for connecting traditional faith to modern life. With a compassionate and engaging style, he delivers powerful messages dedicated to spiritual growth and community building.
             </p>
           </div>
         </div>
+
         <div className="relative">
           {/* Reda Image - behind */}
           <Image
             src={assets.reda}
-            alt="Shaykh Reda Bedier"
+            alt="Dr. Reda Bedier"
             width={500}
             height={500}
             className="relative z-0"
